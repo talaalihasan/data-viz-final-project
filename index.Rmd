@@ -38,7 +38,7 @@ male_female_only <- full_join(female_only, male_only)
 #male_female_only <- scorecard %>% filter(WOMENONLY == 1 | MENONLY == 1) 
 
 male_female_only <- male_female_only %>% 
- mutate(male_female_only, single_gender_college = ifelse(male_female_only$MENONLY == 1, "Male Only College", "Female Only College"))
+ mutate( single_gender_college = ifelse(male_female_only$MENONLY == 1, "Male Only College", "Female Only College"))
 
 make_numeric <- c("COSTT4_A", "SAT_AVG", "ACTMTMID", "FAMINC", "FIRST_GEN", "COSTT4_A", "single_gender_college")
 
@@ -89,15 +89,15 @@ library(leaflet)
     xlab("SAT Score")+
     scale_y_continuous(name = "Family Income",
                        labels = scales::dollar) +
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black")) +
   geom_vline(xintercept = mean(scorecard$SAT_AVG, na.rm = TRUE), color = "violet") +
-  geom_vline(xintercept = mean(male_female_only$SAT_AVG, na.rm = TRUE), color = "lightblue")
+  geom_vline(xintercept = mean(male_female_only$SAT_AVG, na.rm = TRUE), color = "lightblue") + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black")) 
 
 text_sat = paste("State: ", male_female_only$STABBR,"\n Average SAT Score: ", male_female_only$SAT_AVG, sep="")
 
 ggplotly(SAT_scatter, tooltip = "text_sat")
 ```
-#### note: Pink line marks national average SAT Score, blue line marks average for single-sex colleges. Hover for further stats.
+#### note: Pink line marks national average SAT score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 ```{r, tidy=TRUE, echo=FALSE, warning=FALSE}
@@ -120,7 +120,7 @@ text_act = paste("State: ", male_female_only$STABBR,"\n Median ACT Score: ", mal
 
 ggplotly(ACT_scatter, text = "text_act")
 ```
-#### note: Pink line marks national median ACT Score, blue line marks average for single-sex colleges. Hover for further stats.
+#### note: Pink line marks national median ACT score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 
@@ -129,12 +129,12 @@ ggplotly(ACT_scatter, text = "text_act")
 ```{r, tidy=TRUE, echo=FALSE, warning=FALSE}
 gendered_fg_plot <- 
   male_female_only %>% 
-  group_by(STABBR) %>%
+  group_by(STABBR, single_gender_college) %>%
   summarise(mean_fg = mean(FIRST_GEN, na.rm = TRUE))
 
 gendered_fg_plot <-  gendered_fg_plot %>%
   group_by(STABBR) %>%
-    select(STABBR, mean_fg) %>%
+    select(STABBR, mean_fg, single_gender_college) %>%
     filter(mean_fg != "NaN")
 
 
@@ -171,10 +171,10 @@ cost_attendance <- ggplot(data = male_female_only)+
    geom_hline(yintercept = 47510.47, color = "pink") +
   geom_hline(yintercept = mean(male_female_only$COSTT4_A, na.rm = TRUE), color = "lightblue") +
    labs(x = "State", y = "Average Cost of Attendance", title = "Average Cost of Attendance at Single-Gender Colleges") +
-   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"))
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black")) 
 
-text = paste("State: ", male_female_only$STABBR, "\nFamily Income: ", male_female_only$FAMINC, "\n Cost of Attendance: ", male_female_only$COSTT4_A, sep="")
 
+text = paste("State: ", male_female_only$STABBR, "\nFamily Income: ", male_female_only$FAMINC, "\n Cost of Attendance: ", male_female_only$COSTT4_A, sep="") 
 
 ggplotly(cost_attendance, tooltip = "text")
 ```
