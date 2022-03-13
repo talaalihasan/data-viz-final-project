@@ -90,14 +90,14 @@ library(leaflet)
     scale_y_continuous(name = "Family Income",
                        labels = scales::dollar) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-  geom_vline(xintercept = mean(scorecard$SAT_AVG, na.rm = TRUE), color = "pink") +
+  geom_vline(xintercept = mean(scorecard$SAT_AVG, na.rm = TRUE), color = "violet") +
   geom_vline(xintercept = mean(male_female_only$SAT_AVG, na.rm = TRUE), color = "lightblue")
 
 text_sat = paste("State: ", male_female_only$STABBR,"\n Average SAT Score: ", male_female_only$SAT_AVG, sep="")
 
 ggplotly(SAT_scatter, tooltip = "text_sat")
 ```
-#### note: pink line marks national average SAT Score, blue line marks average for single-sex colleges
+#### note: Pink line marks national average SAT Score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 ```{r, tidy=TRUE, echo=FALSE, warning=FALSE}
@@ -120,7 +120,7 @@ text_act = paste("State: ", male_female_only$STABBR,"\n Median ACT Score: ", mal
 
 ggplotly(ACT_scatter, text = "text_act")
 ```
-#### note: pink line marks national median ACT Score, blue line marks average for single-sex colleges
+#### note: Pink line marks national median ACT Score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 
@@ -154,7 +154,7 @@ text_fg = paste("State: ", gendered_fg_plot$STABBR, "\nMean Share of First Gener
 
 ggplotly(first_gen_hist, tooltip = "text_fg")
 ```
-#### note: pink line marks national average mean share of first-generation students, blue line marks average for single-sex colleges
+#### note: Pink line marks national average mean share of first-generation students, blue line marks average for single-sex colleges. Hover for further stats
 
 
 
@@ -169,7 +169,7 @@ cost_attendance <- ggplot(data = male_female_only)+
    scale_y_continuous(name = "Average Cost of Attendance",
                       labels = scales::dollar) +
    geom_hline(yintercept = 47510.47, color = "pink") +
-  geom_hline(yintercept = mean(male_female_only$COSTT4_A, na.rm = TRUE), color = "lightblue")
+  geom_hline(yintercept = mean(male_female_only$COSTT4_A, na.rm = TRUE), color = "lightblue") +
    labs(x = "State", y = "Average Cost of Attendance", title = "Average Cost of Attendance at Single-Gender Colleges") +
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"))
 
@@ -178,7 +178,7 @@ text = paste("State: ", male_female_only$STABBR, "\nFamily Income: ", male_femal
 
 ggplotly(cost_attendance, tooltip = "text")
 ```
-#### note: pink line marks national average cost of attendance at private and for profit institutions, blue line marks average for single-sex colleges
+#### note: pink line marks national average cost of attendance at private and for profit institutions, blue line marks average for single-sex colleges. Hover for Further stats.
 
 
 ##### source: https://collegescorecard.ed.gov/data/ (2022)
