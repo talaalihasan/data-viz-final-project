@@ -5,7 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Desktop/Data Visualization/data-viz-final-project")
+
 library(sf)
 library(tidyverse)
 library(ggiraph)
@@ -48,13 +48,12 @@ make_numeric_2 <- c("COSTT4_A", "SAT_AVG", "ACTMTMID", "FAMINC", "FIRST_GEN", "C
 scorecard <- scorecard %>% mutate_at(make_numeric_2, as.numeric)
 
 ```
-# Investigation of Single Sex Collages in the U.S. 
+# Investigation of Single Sex Collages in the U.S. Using College Scorecard Data
 
 ## Location of Male and Female Only Colleges in US
 
 ```{r, tidy=TRUE, echo=FALSE, warning=FALSE}
 sf_data <- st_as_sf(male_female_only, coords = c("LONGITUDE", "LATITUDE"), crs = 4326)
-
 library(leaflet)
   leaflet() %>% addTiles() %>% 
   addCircleMarkers(data = sf_data, label = sf_data$INSTNM, fill = sf_data$single_gender_college)
