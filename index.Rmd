@@ -58,7 +58,7 @@ library(leaflet)
   leaflet() %>% addTiles() %>% 
   addCircleMarkers(data = sf_data, label = sf_data$INSTNM, fill = sf_data$single_gender_college)
 ```
-
+#### Most of these colleges are cocnentrated on the East Coast, and many male only colleges are near majority Jewish communities.
 
 ```{r, echo=FALSE, warning=FALSE}
 #create map data and plot map of location of male and female only colleges in US
@@ -97,7 +97,9 @@ text_sat = paste("State: ", male_female_only$STABBR,"\n Average SAT Score: ", ma
 
 ggplotly(SAT_scatter, tooltip = "text_sat")
 ```
-#### note: Pink line marks national average SAT score, blue line marks average for single-sex colleges. Hover for further stats.
+#### SAT scores for male and female only colleges lag slightly behind the national average. 
+
+##### Note: The pink line marks national average SAT score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 ```{r, tidy=TRUE, echo=FALSE, warning=FALSE}
@@ -120,7 +122,9 @@ text_act = paste("State: ", male_female_only$STABBR,"\n Median ACT Score: ", mal
 
 ggplotly(ACT_scatter, text = "text_act")
 ```
-#### note: Pink line marks national median ACT score, blue line marks average for single-sex colleges. Hover for further stats.
+#### ACT scores for male and female only colleges are slightly above the national average. 
+
+##### Note: The pink line marks national median ACT score, blue line marks average for single-sex colleges. Hover for further stats.
 
 
 
@@ -154,7 +158,9 @@ text_fg = paste("State: ", gendered_fg_plot$STABBR, "\nMean Share of First Gener
 
 ggplotly(first_gen_hist, tooltip = "text_fg")
 ```
-#### note: Pink line marks national average mean share of first-generation students, blue line marks average for single-sex colleges. Hover for further stats
+#### Male and female only colleges tend to have more first-generation students compared to the national average. 
+
+##### Note: The pink line marks national average mean share of first-generation students, blue line marks average for single-sex colleges. Hover for further stats
 
 
 
@@ -178,7 +184,9 @@ text = paste("State: ", male_female_only$STABBR, "\nFamily Income: ", male_femal
 
 ggplotly(cost_attendance, tooltip = "text")
 ```
-#### note: pink line marks national average cost of attendance at private and for profit institutions, blue line marks average for single-sex colleges. Hover for Further stats.
+#### The cost of male and female only colleges is slightly lower than that of the national average. 
+
+##### Note: The pink line marks national average cost of attendance at private and for profit institutions, blue line marks average for single-sex colleges. Hover for Further stats.
 
 
-##### source: https://collegescorecard.ed.gov/data/ (2022)
+###### source: https://collegescorecard.ed.gov/data/ (2022)
